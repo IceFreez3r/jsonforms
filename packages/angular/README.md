@@ -26,7 +26,7 @@ Mandatory props:
 Optional props:
 
 - `schema: JsonSchema` - the data schema for the given data. Will be generated when not given.
-- `uischema: UISchemaElement` - the UI schema for the given data schema. Will be generated when not given.
+- `uischema: AnyUISchemaElement` - the UI schema for the given data schema. Will be generated when not given.
 - `config: any` - form-wide options. May contain default ui schema options.
 - `readonly: boolean` - whether all controls shall be readonly.
 - `uischemas: JsonFormsUiSchemaEntry[]` - registry for dynamic ui schema dispatching

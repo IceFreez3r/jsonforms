@@ -270,9 +270,9 @@ import {
   createDefaultValue,
   findUISchema,
   getControlPath,
+  type AnyUISchemaElement,
   type ControlElement,
   type JsonSchema,
-  type UISchemaElement,
 } from '@jsonforms/core';
 import {
   DispatchRenderer,
@@ -374,7 +374,7 @@ const controlRenderer = defineComponent({
     dataLength(): number {
       return this.control.data ? this.control.data.length : 0;
     },
-    foundUISchema(): UISchemaElement {
+    foundUISchema(): AnyUISchemaElement {
       return findUISchema(
         this.control.uischemas,
         this.control.schema,

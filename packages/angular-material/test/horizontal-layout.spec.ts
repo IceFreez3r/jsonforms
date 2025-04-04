@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 import { ComponentFixture, waitForAsync } from '@angular/core/testing';
-import { HorizontalLayout, UISchemaElement } from '@jsonforms/core';
+import { HorizontalLayout, UISchemaBaseElement } from '@jsonforms/core';
 import { beforeEachLayoutTest, setupMockStore } from './common';
 import {
   HorizontalLayoutRenderer,
@@ -48,7 +48,7 @@ describe('Horizontal layout', () => {
   }));
 
   it('render with undefined elements', () => {
-    const uischema: UISchemaElement = {
+    const uischema: UISchemaBaseElement = {
       type: 'HorizontalLayout',
     };
     setupMockStore(fixture, {

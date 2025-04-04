@@ -39,6 +39,7 @@ import { cloneDeep } from 'lodash';
 import { createAjv, validate } from '../../src/util/validator';
 import { JsonFormsCore, errorAt, subErrorsAt } from '../../src/store';
 import { getControlPath } from '../../src/util';
+import { AnyUISchemaElement } from '../../src/models';
 
 test('core reducer should support v7', (t) => {
   const schema: JsonSchema = {
@@ -153,6 +154,7 @@ test('core reducer - previous state - init without options should keep previous 
       schema: {},
       uischema: {
         type: 'Label',
+        text: '',
       },
       ajv: myAjv,
       additionalErrors,
@@ -181,6 +183,7 @@ test('core reducer - previous state - init with ajv options object should overwr
       schema: {},
       uischema: {
         type: 'Label',
+        text: '',
       },
       ajv: previousAjv,
     },
@@ -228,6 +231,7 @@ test('core reducer - previous state - init with additionalErrors option object s
       schema: {},
       uischema: {
         type: 'Label',
+        text: '',
       },
       additionalErrors: prevAdditionalErrors,
     },
@@ -264,6 +268,7 @@ test('core reducer - previous state - init with empty options should not overwri
       schema: {},
       uischema: {
         type: 'Label',
+        text: '',
       },
       ajv: myAjv,
       additionalErrors,
@@ -293,6 +298,7 @@ test('core reducer - previous state - init with undefined data should not change
       schema: {},
       uischema: {
         type: 'Label',
+        text: '',
       },
     },
     init(undefined, schema, undefined, {})
@@ -340,6 +346,7 @@ test('core reducer - update - undefined data should update for given path', (t) 
     schema: schema,
     uischema: {
       type: 'Label',
+      text: '',
     },
     errors: [],
     validator: new Ajv().compile(schema),
@@ -376,6 +383,7 @@ test('core reducer - update - path is undefined state should remain same', (t) =
     },
     uischema: {
       type: 'Label',
+      text: '',
     },
   };
 
@@ -411,6 +419,7 @@ test('core reducer - update - path is null state should remain same', (t) => {
     },
     uischema: {
       type: 'Label',
+      text: '',
     },
   };
 
@@ -448,6 +457,7 @@ test('core reducer - update - empty path should update root state', (t) => {
     schema,
     uischema: {
       type: 'Label',
+      text: '',
     },
     validator: new Ajv().compile(schema),
   };
@@ -489,6 +499,7 @@ test('core reducer - update - providing a path should update data only belonging
     schema,
     uischema: {
       type: 'Label',
+      text: '',
     },
     validator: new Ajv().compile(schema),
   };
@@ -529,6 +540,7 @@ test('core reducer - update - should update errors', (t) => {
     schema,
     uischema: {
       type: 'Label',
+      text: '',
     },
     validator: new Ajv().compile(schema),
   };
@@ -578,6 +590,7 @@ test('core reducer - update - setting a state slice as undefined should remove t
     schema: schema,
     uischema: {
       type: 'Label',
+      text: '',
     },
     errors: [],
     validator: new Ajv().compile(schema),
@@ -599,7 +612,7 @@ test('core reducer - updateErrors - should update errors with empty list', (t) =
   const before: JsonFormsCore = {
     data: {},
     schema: {},
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
   };
 
   const after = coreReducer(before, updateErrors([]));
@@ -610,7 +623,7 @@ test('core reducer - updateErrors - should update errors with error', (t) => {
   const before: JsonFormsCore = {
     data: {},
     schema: {},
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors: [],
   };
 
@@ -632,7 +645,7 @@ test('core reducer - updateErrors - should update errors with undefined', (t) =>
   const before: JsonFormsCore = {
     data: {},
     schema: {},
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors: [],
   };
 
@@ -662,7 +675,7 @@ test('errorAt filters enum', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt('foo', schema.properties.foo)(state);
@@ -693,7 +706,7 @@ test('errorAt filters required', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt('foo', schema.properties.foo)(state);
@@ -742,7 +755,7 @@ test('errorAt filters required in oneOf object', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -794,7 +807,7 @@ test('errorAt filters required in anyOf object', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -842,7 +855,7 @@ test('errorAt filters array minItems', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt('colours', schema.properties.colours)(state);
@@ -887,7 +900,7 @@ test('errorAt filters array inner value', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt('colours.0', schema.properties.colours)(state);
@@ -916,7 +929,7 @@ test('errorAt filters oneOf enum', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt('oneOfEnum', schema.properties.oneOfEnum)(state);
@@ -956,7 +969,7 @@ test('errorAt filters array with inner oneOf enum', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -997,7 +1010,7 @@ test('errorAt filters oneOf simple', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -1036,7 +1049,7 @@ test('errorAt filters anyOf simple', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -1090,7 +1103,7 @@ test('errorAt filters oneOf objects', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -1142,7 +1155,7 @@ test('errorAt filters oneOf objects same properties', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -1191,7 +1204,7 @@ test('errorAt filters oneOf array', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -1240,7 +1253,7 @@ test('errorAt filters oneOf array inner', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = errorAt(
@@ -1287,7 +1300,7 @@ test('subErrorsAt filters array inner', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = subErrorsAt(
@@ -1324,7 +1337,7 @@ test('subErrorsAt only returning suberrors', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const subErrors = subErrorsAt(
@@ -1372,7 +1385,7 @@ test('subErrorsAt filters oneOf array inner', (t) => {
   const state: JsonFormsCore = {
     data,
     schema,
-    uischema: undefined,
+    uischema: undefined as unknown as AnyUISchemaElement,
     errors,
   };
   const filtered = subErrorsAt(

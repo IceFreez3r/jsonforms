@@ -28,6 +28,7 @@ import {
   JsonFormsAbstractControl,
 } from '@jsonforms/angular';
 import {
+  AnyUISchemaElement,
   arrayDefaultTranslations,
   ArrayLayoutProps,
   ArrayTranslations,
@@ -45,7 +46,6 @@ import {
   rankWith,
   setReadonly,
   StatePropsOfArrayLayout,
-  UISchemaElement,
   UISchemaTester,
   unsetReadonly,
 } from '@jsonforms/core';
@@ -175,7 +175,7 @@ export class ArrayLayoutRenderer
   removeItems: (path: string, toDelete: number[]) => () => void;
   uischemas: {
     tester: UISchemaTester;
-    uischema: UISchemaElement;
+    uischema: AnyUISchemaElement;
   }[];
   constructor(jsonFormsService: JsonFormsAngularService) {
     super(jsonFormsService);

@@ -30,10 +30,10 @@ import { UPDATE_DATA, UpdateAction } from '../../src/actions';
 import configureStore from 'redux-mock-store';
 import { JsonFormsState } from '../../src/store';
 import {
+  AnyUISchemaElement,
   ControlElement,
   JsonSchema,
   RuleEffect,
-  UISchemaElement,
 } from '../../src/models';
 import {
   DispatchPropsOfCell,
@@ -79,7 +79,7 @@ const coreUISchema: ControlElement = {
   scope: '#/properties/firstName',
 };
 
-const createState = (uischema: UISchemaElement): JsonFormsState => ({
+const createState = (uischema: AnyUISchemaElement): JsonFormsState => ({
   jsonforms: {
     core: {
       schema: {

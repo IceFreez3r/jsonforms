@@ -12,12 +12,13 @@ import {
   getCombinatorTranslations,
   getFirstPrimitiveProp,
   isDescriptionHidden,
+  type AnyUISchemaElement,
   type ControlElement,
   type DispatchPropsOfControl,
   type DispatchPropsOfMultiEnumControl,
   type JsonFormsSubStates,
   type JsonSchema,
-  type UISchemaElement,
+  type UISchemaBaseElement,
 } from '@jsonforms/core';
 import type Ajv from 'ajv';
 import type { ErrorObject } from 'ajv';
@@ -41,7 +42,7 @@ export const IconSymbol: InjectionKey<Required<IconOptions>> =
   Symbol.for('vuetify:icons');
 
 export const useControlAppliedOptions = <
-  T extends { config: any; uischema: UISchemaElement },
+  T extends { config: any; uischema: UISchemaBaseElement },
   I extends {
     control: ComputedRef<T>;
   },
@@ -58,7 +59,7 @@ export const useControlAppliedOptions = <
 };
 
 export const useLayoutAppliedOptions = <
-  T extends { config: any; uischema: UISchemaElement },
+  T extends { config: any; uischema: UISchemaBaseElement },
   I extends {
     layout: ComputedRef<T>;
   },
@@ -95,7 +96,7 @@ export const useComputedLabel = <
  */
 export const useVuetifyLabel = <
   T extends {
-    uischema: UISchemaElement;
+    uischema: UISchemaBaseElement;
     config: any;
   },
   I extends {
@@ -297,7 +298,7 @@ export const useTranslator = () => {
  * Adds styles and appliedOptions
  */
 export const useVuetifyLayout = <
-  T extends { config: any; uischema: UISchemaElement },
+  T extends { config: any; uischema: UISchemaBaseElement },
   I extends { layout: ComputedRef<T> },
 >(
   input: I,
@@ -326,7 +327,7 @@ export const useVuetifyArrayControl = <
     label: string;
     required: boolean;
     config: any;
-    uischema: UISchemaElement;
+    uischema: AnyUISchemaElement;
     schema: JsonSchema;
     data: any;
     childErrors: ErrorObject[];
@@ -413,7 +414,7 @@ export const useVuetifyArrayControl = <
  * Adds styles and appliedOptions
  */
 export const useVuetifyBasicControl = <
-  T extends { config: any; uischema: UISchemaElement },
+  T extends { config: any; uischema: UISchemaBaseElement },
   I extends {
     control: ComputedRef<T>;
   },

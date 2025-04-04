@@ -32,7 +32,7 @@ import {
   RuleEffect,
   SchemaBasedCondition,
   Scopable,
-  UISchemaElement,
+  UISchemaBaseElement,
 } from '../models';
 import { resolveData } from './resolvers';
 import type Ajv from 'ajv';
@@ -87,7 +87,7 @@ const evaluateCondition = (
 };
 
 const isRuleFulfilled = (
-  uischema: UISchemaElement,
+  uischema: UISchemaBaseElement,
   data: any,
   path: string,
   ajv: Ajv
@@ -97,7 +97,7 @@ const isRuleFulfilled = (
 };
 
 export const evalVisibility = (
-  uischema: UISchemaElement,
+  uischema: UISchemaBaseElement,
   data: any,
   path: string = undefined,
   ajv: Ajv
@@ -116,7 +116,7 @@ export const evalVisibility = (
 };
 
 export const evalEnablement = (
-  uischema: UISchemaElement,
+  uischema: UISchemaBaseElement,
   data: any,
   path: string = undefined,
   ajv: Ajv
@@ -134,7 +134,7 @@ export const evalEnablement = (
   }
 };
 
-export const hasShowRule = (uischema: UISchemaElement): boolean => {
+export const hasShowRule = (uischema: UISchemaBaseElement): boolean => {
   if (
     uischema.rule &&
     (uischema.rule.effect === RuleEffect.SHOW ||
@@ -145,7 +145,7 @@ export const hasShowRule = (uischema: UISchemaElement): boolean => {
   return false;
 };
 
-export const hasEnableRule = (uischema: UISchemaElement): boolean => {
+export const hasEnableRule = (uischema: UISchemaBaseElement): boolean => {
   if (
     uischema.rule &&
     (uischema.rule.effect === RuleEffect.ENABLE ||
@@ -157,7 +157,7 @@ export const hasEnableRule = (uischema: UISchemaElement): boolean => {
 };
 
 export const isVisible = (
-  uischema: UISchemaElement,
+  uischema: UISchemaBaseElement,
   data: any,
   path: string = undefined,
   ajv: Ajv
@@ -170,7 +170,7 @@ export const isVisible = (
 };
 
 export const isEnabled = (
-  uischema: UISchemaElement,
+  uischema: UISchemaBaseElement,
   data: any,
   path: string = undefined,
   ajv: Ajv

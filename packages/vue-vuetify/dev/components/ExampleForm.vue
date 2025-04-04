@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type {
+  AnyUISchemaElement,
   JsonFormsCellRendererRegistryEntry,
   JsonFormsI18nState,
   JsonFormsRendererRegistryEntry,
   JsonFormsUISchemaRegistryEntry,
   JsonSchema,
   Middleware,
-  UISchemaElement,
   ValidationMode,
 } from '@jsonforms/core';
 import {
@@ -27,7 +27,7 @@ export type ResolvedSchema = {
 export interface JsonFormsProps {
   data: any;
   schema?: JsonSchema;
-  uischema?: UISchemaElement;
+  uischema?: AnyUISchemaElement;
   renderers: MaybeReadonly<JsonFormsRendererRegistryEntry[]>;
   cells?: MaybeReadonly<JsonFormsCellRendererRegistryEntry[]>;
   config?: any;

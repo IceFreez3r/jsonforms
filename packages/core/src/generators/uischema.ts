@@ -27,11 +27,11 @@ import isEmpty from 'lodash/isEmpty';
 import startCase from 'lodash/startCase';
 import keys from 'lodash/keys';
 import {
+  AnyUISchemaElement,
   ControlElement,
   JsonSchema,
   LabelElement,
   Layout,
-  UISchemaElement,
 } from '../models';
 import { deriveTypes, encode, isGroup, isLayout, resolveSchema } from '../util';
 
@@ -60,7 +60,7 @@ export const createControlElement = (ref: string): ControlElement => ({
  * @returns the wrapped uiSchema.
  */
 const wrapInLayoutIfNecessary = (
-  uischema: UISchemaElement,
+  uischema: AnyUISchemaElement,
   layoutType: string
 ): Layout => {
   if (!isEmpty(uischema) && !isLayout(uischema)) {
@@ -112,12 +112,12 @@ const isCombinator = (jsonSchema: JsonSchema): boolean => {
 
 const generateUISchema = (
   jsonSchema: JsonSchema,
-  schemaElements: UISchemaElement[],
+  schemaElements: AnyUISchemaElement[],
   currentRef: string,
   schemaName: string,
   layoutType: string,
   rootSchema?: JsonSchema
-): UISchemaElement => {
+): AnyUISchemaElement => {
   if (!isEmpty(jsonSchema) && jsonSchema.$ref !== undefined) {
     return generateUISchema(
       resolveSchema(rootSchema, jsonSchema.$ref, rootSchema),
@@ -213,7 +213,7 @@ export const generateDefaultUISchema = (
   layoutType = 'VerticalLayout',
   prefix = '#',
   rootSchema = jsonSchema
-): UISchemaElement =>
+): AnyUISchemaElement =>
   wrapInLayoutIfNecessary(
     generateUISchema(jsonSchema, [], prefix, '', layoutType, rootSchema),
     layoutType

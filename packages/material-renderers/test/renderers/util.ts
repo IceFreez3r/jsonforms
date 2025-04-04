@@ -24,19 +24,19 @@
 */
 
 import {
+  AnyUISchemaElement,
   createAjv,
   JsonFormsCore,
   JsonSchema,
   TesterContext,
   Translator,
-  UISchemaElement,
 } from '@jsonforms/core';
 import { JsonFormsReactProps, useJsonForms } from '@jsonforms/react';
 import React from 'react';
 
 export const initCore = (
   schema: JsonSchema,
-  uischema: UISchemaElement,
+  uischema: AnyUISchemaElement,
   data?: any
 ): JsonFormsCore => {
   return { schema, uischema, data, ajv: createAjv() };

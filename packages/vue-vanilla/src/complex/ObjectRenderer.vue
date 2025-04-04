@@ -19,9 +19,9 @@ import {
   ControlElement,
   Generate,
   GroupLayout,
-  UISchemaElement,
   findUISchema,
   isObjectControl,
+  AnyUISchemaElement,
 } from '@jsonforms/core';
 import { defineComponent } from 'vue';
 import {
@@ -49,7 +49,7 @@ const controlRenderer = defineComponent({
     };
   },
   computed: {
-    detailUiSchema(): UISchemaElement {
+    detailUiSchema(): AnyUISchemaElement {
       const uiSchemaGenerator = () => {
         const uiSchema = Generate.uiSchema(
           this.control.schema,

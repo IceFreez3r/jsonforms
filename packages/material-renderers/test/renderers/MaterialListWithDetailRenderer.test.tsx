@@ -26,8 +26,8 @@ import {
   ArrayTranslationEnum,
   ControlElement,
   JsonSchema7,
+  ListWithDetailElement,
   Scoped,
-  UISchemaElement,
 } from '@jsonforms/core';
 import * as React from 'react';
 
@@ -92,7 +92,7 @@ const uischema: ControlElement = {
   scope: '#',
 };
 
-const uischemaListWithDetail: UISchemaElement & Scoped = {
+const uischemaListWithDetail: ListWithDetailElement & Scoped = {
   type: 'ListWithDetail',
   scope: '#',
 };
@@ -139,7 +139,7 @@ const nestedSchema2 = {
 
 describe('Material list with detail tester', () => {
   it('should only be applicable for intermediate array or when containing proper options', () => {
-    const correctUISchema = {
+    const correctUISchema: ListWithDetailElement = {
       type: 'ListWithDetail',
       scope: '#',
     };

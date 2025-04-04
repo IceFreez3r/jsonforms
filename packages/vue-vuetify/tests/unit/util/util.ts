@@ -1,8 +1,8 @@
 import type {
+  AnyUISchemaElement,
   JsonFormsI18nState,
   JsonFormsRendererRegistryEntry,
   JsonSchema,
-  UISchemaElement,
 } from '@jsonforms/core';
 import { mount } from '@vue/test-utils';
 import TestComponent from './TestComponent.vue';
@@ -22,7 +22,7 @@ export const mountJsonForms = (
   data: any,
   schema: JsonSchema,
   renderers: JsonFormsRendererRegistryEntry[],
-  uischema?: UISchemaElement,
+  uischema?: AnyUISchemaElement,
   config?: any,
   i18n?: JsonFormsI18nState,
 ) => {

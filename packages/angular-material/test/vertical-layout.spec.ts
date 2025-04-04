@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 import { ComponentFixture, waitForAsync } from '@angular/core/testing';
-import { UISchemaElement, VerticalLayout } from '@jsonforms/core';
+import { UISchemaBaseElement, VerticalLayout } from '@jsonforms/core';
 import { beforeEachLayoutTest, setupMockStore } from './common';
 import {
   VerticalLayoutRenderer,
@@ -50,7 +50,7 @@ describe('Vertical layout', () => {
   }));
 
   it('render with undefined elements', () => {
-    const uischema: UISchemaElement = {
+    const uischema: UISchemaBaseElement = {
       type: 'VerticalLayout',
     };
     setupMockStore(fixture, {

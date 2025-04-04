@@ -26,6 +26,7 @@ import React, { useState, useMemo } from 'react';
 import { AppBar, Tab, Tabs } from '@mui/material';
 import {
   and,
+  AnyUISchemaElement,
   Categorization,
   Category,
   deriveLabelForUISchemaElement,
@@ -34,7 +35,6 @@ import {
   rankWith,
   StatePropsOfLayout,
   Tester,
-  UISchemaElement,
   uiTypeIs,
 } from '@jsonforms/core';
 import {
@@ -51,7 +51,7 @@ import {
 
 export const isSingleLevelCategorization: Tester = and(
   uiTypeIs('Categorization'),
-  (uischema: UISchemaElement): boolean => {
+  (uischema: AnyUISchemaElement): boolean => {
     const categorization = uischema as Categorization;
 
     return (

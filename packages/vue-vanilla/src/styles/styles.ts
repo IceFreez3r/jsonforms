@@ -1,4 +1,4 @@
-import { UISchemaElement } from '@jsonforms/core';
+import { UISchemaBaseElement } from '@jsonforms/core';
 import { inject } from 'vue';
 import merge from 'lodash/merge';
 import { defaultStyles } from './defaultStyles';
@@ -86,7 +86,7 @@ export interface Styles {
   };
 }
 
-export const useStyles = (element?: UISchemaElement) => {
+export const useStyles = (element?: UISchemaBaseElement) => {
   const userStyles = inject('styles', defaultStyles);
   if (!element?.options?.styles) {
     return userStyles;

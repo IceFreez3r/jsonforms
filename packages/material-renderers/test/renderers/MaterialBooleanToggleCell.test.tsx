@@ -23,11 +23,7 @@
   THE SOFTWARE.
 */
 import * as React from 'react';
-import {
-  ControlElement,
-  NOT_APPLICABLE,
-  UISchemaElement,
-} from '@jsonforms/core';
+import { ControlElement, NOT_APPLICABLE } from '@jsonforms/core';
 import BooleanToggleCell, {
   materialBooleanToggleCellTester,
 } from '../../src/cells/MaterialBooleanToggleCell';
@@ -113,7 +109,7 @@ describe('Material boolean toggle cell tester', () => {
           options: {
             toggle: false,
           },
-        } as UISchemaElement,
+        } as ControlElement,
         {
           type: 'object',
           properties: {
@@ -132,7 +128,7 @@ describe('Material boolean toggle cell tester', () => {
         {
           type: 'Control',
           scope: '#/properties/foo',
-        } as UISchemaElement,
+        } as ControlElement,
         {
           type: 'object',
           properties: {

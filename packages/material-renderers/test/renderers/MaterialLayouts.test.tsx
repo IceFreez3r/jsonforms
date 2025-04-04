@@ -26,10 +26,12 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import { materialRenderers } from '../../src';
 import {
+  AnyUISchemaElement,
+  Categorization,
   ControlElement,
   Layout,
   RuleEffect,
-  UISchemaElement,
+  VerticalLayout,
 } from '@jsonforms/core';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { JsonForms } from '@jsonforms/react';
@@ -59,7 +61,7 @@ const schema = {
     },
   },
 };
-const baseUischema = () => ({
+const baseUischema: () => VerticalLayout = () => ({
   type: 'VerticalLayout',
   elements: [
     {
@@ -96,7 +98,7 @@ const rule = (effect: RuleEffect, propertyName: string) => ({
   },
 });
 
-const topRule = (rule: any, uischema: UISchemaElement) => {
+const topRule = (rule: any, uischema: AnyUISchemaElement) => {
   uischema.rule = rule;
   return uischema;
 };
@@ -134,7 +136,7 @@ const controlEnableRule = (uischema: Layout) =>
 describe('Layout Tests', () => {
   let wrapper: Enzyme.ReactWrapper;
 
-  const createWrapper = (data: any, uischema: UISchemaElement) => {
+  const createWrapper = (data: any, uischema: AnyUISchemaElement) => {
     wrapper = mount(
       <JsonForms
         data={data}
@@ -375,7 +377,7 @@ describe('Special Layout Tests', () => {
       },
     };
 
-    const uischema = {
+    const uischema: Categorization = {
       type: 'Categorization',
       elements: [
         {

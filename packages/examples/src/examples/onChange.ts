@@ -24,7 +24,7 @@
 */
 import { registerExamples } from '../register';
 import {
-  UISchemaElement,
+  UISchemaBaseElement,
   updateErrors,
   JsonFormsCore,
   AnyAction,
@@ -66,7 +66,7 @@ export const schema = {
   required: ['name', 'description'],
 };
 
-export const uischema: UISchemaElement = undefined;
+export const uischema: UISchemaBaseElement = undefined;
 
 export const data = {};
 

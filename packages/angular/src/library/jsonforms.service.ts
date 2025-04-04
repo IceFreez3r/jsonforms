@@ -1,19 +1,19 @@
 /*
   The MIT License
-  
+
   Copyright (c) 2017-2020 EclipseSource Munich
   https://github.com/eclipsesource/jsonforms
-  
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
-  
+
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
-  
+
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -39,13 +39,13 @@ import {
   setConfig,
   SetConfigAction,
   UISchemaActions,
-  UISchemaElement,
   uischemaRegistryReducer,
   UISchemaTester,
   ValidationMode,
   updateI18n,
   Middleware,
   defaultMiddleware,
+  AnyUISchemaElement,
 } from '@jsonforms/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import type { JsonFormsBaseRenderer } from './base.renderer';
@@ -105,13 +105,13 @@ export class JsonFormsAngularService {
    * @deprecated use {@link JsonFormsAngularService.addRenderer}
    */
   registerRenderer(
-    renderer: JsonFormsBaseRenderer<UISchemaElement>,
+    renderer: JsonFormsBaseRenderer<AnyUISchemaElement>,
     tester: RankedTester
   ): void {
     this.addRenderer(renderer, tester);
   }
   addRenderer(
-    renderer: JsonFormsBaseRenderer<UISchemaElement>,
+    renderer: JsonFormsBaseRenderer<AnyUISchemaElement>,
     tester: RankedTester
   ): void {
     this._state.renderers.push({ renderer, tester });
@@ -193,7 +193,7 @@ export class JsonFormsAngularService {
   }
 
   setUiSchemas(
-    uischemas: { tester: UISchemaTester; uischema: UISchemaElement }[]
+    uischemas: { tester: UISchemaTester; uischema: AnyUISchemaElement }[]
   ): void {
     this._state.uischemas = uischemas;
     this.updateSubject();
@@ -206,7 +206,7 @@ export class JsonFormsAngularService {
     return setConfigAction;
   }
 
-  setUiSchema(uischema: UISchemaElement | undefined): void {
+  setUiSchema(uischema: AnyUISchemaElement | undefined): void {
     const newUiSchema =
       uischema ?? generateDefaultUISchema(this._state.core.schema);
     const coreState = this.middleware(
@@ -290,7 +290,7 @@ export class JsonFormsAngularService {
   updateCoreState(
     data: any | typeof USE_STATE_VALUE,
     schema: JsonSchema | typeof USE_STATE_VALUE,
-    uischema: UISchemaElement | typeof USE_STATE_VALUE,
+    uischema: AnyUISchemaElement | typeof USE_STATE_VALUE,
     ajv: Ajv | typeof USE_STATE_VALUE,
     validationMode: ValidationMode | typeof USE_STATE_VALUE,
     additionalErrors: ErrorObject[] | typeof USE_STATE_VALUE

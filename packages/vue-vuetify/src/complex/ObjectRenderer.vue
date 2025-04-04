@@ -20,9 +20,9 @@
 import {
   Generate,
   findUISchema,
+  type AnyUISchemaElement,
   type ControlElement,
   type GroupLayout,
-  type UISchemaElement,
 } from '@jsonforms/core';
 import {
   DispatchRenderer,
@@ -71,7 +71,7 @@ const controlRenderer = defineComponent({
         showAdditionalProperties === true
       );
     },
-    detailUiSchema(): UISchemaElement {
+    detailUiSchema(): AnyUISchemaElement {
       const uiSchemaGenerator = () => {
         const uiSchema = Generate.uiSchema(
           this.control.schema,

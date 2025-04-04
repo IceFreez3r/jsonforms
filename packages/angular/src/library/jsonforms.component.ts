@@ -41,7 +41,7 @@ import {
   mapStateToJsonFormsRendererProps,
   OwnPropsOfRenderer,
   StatePropsOfJsonFormsRenderer,
-  UISchemaElement,
+  AnyUISchemaElement,
 } from '@jsonforms/core';
 import { UnknownRenderer } from './unknown.component';
 import { JsonFormsBaseRenderer } from './base.renderer';
@@ -70,7 +70,7 @@ const areEqual = (
   standalone: false,
 })
 export class JsonFormsOutlet
-  extends JsonFormsBaseRenderer<UISchemaElement>
+  extends JsonFormsBaseRenderer<AnyUISchemaElement>
   implements OnInit
 {
   private previousProps: StatePropsOfJsonFormsRenderer;
@@ -137,7 +137,7 @@ export class JsonFormsOutlet
 
     if (currentComponentRef.instance instanceof JsonFormsBaseRenderer) {
       const instance =
-        currentComponentRef.instance as JsonFormsBaseRenderer<UISchemaElement>;
+        currentComponentRef.instance as JsonFormsBaseRenderer<AnyUISchemaElement>;
       instance.uischema = uischema;
       instance.schema = schema;
       instance.path = this.path;

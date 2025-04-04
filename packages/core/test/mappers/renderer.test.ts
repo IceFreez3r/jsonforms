@@ -1,19 +1,19 @@
 /*
   The MIT License
-  
+
   Copyright (c) 2017-2019 EclipseSource Munich
   https://github.com/eclipsesource/jsonforms
-  
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
-  
+
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
-  
+
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -39,12 +39,12 @@ import {
   UPDATE_DATA,
 } from '../../src/actions';
 import {
+  AnyUISchemaElement,
   ControlElement,
   JsonSchema,
   JsonSchema7,
   LabelElement,
   RuleEffect,
-  UISchemaElement,
 } from '../../src/models';
 import {
   OwnPropsOfControl,
@@ -117,7 +117,7 @@ const coreUISchema: ControlElement = {
   scope: '#/properties/firstName',
 };
 
-const createState = (uischema: UISchemaElement) => ({
+const createState = (uischema: AnyUISchemaElement) => ({
   jsonforms: {
     core: {
       schema: {
@@ -397,7 +397,7 @@ test('mapStateToControlProps - errors', (t) => {
     message: 'Duff beer',
     keyword: 'whatever',
     schemaPath: '',
-    params: undefined,
+    params: {},
     parentSchema: { type: 'string' },
   };
   clonedState.jsonforms.core.errors = [error];
@@ -819,7 +819,7 @@ test(`mapStateToJsonFormsRendererProps should use UI schema if given via ownProp
       },
     },
   };
-  const uischema = {
+  const uischema: ControlElement = {
     type: 'Control',
     scope: '#/properties/foo',
   };
@@ -1098,7 +1098,7 @@ test('mapStateToArrayLayoutProps - should include maxItems in array layout props
 test('mapStateToLayoutProps should return renderers prop via ownProps', (t) => {
   const uischema = {
     type: 'VerticalLayout',
-    elements: [] as UISchemaElement[],
+    elements: [] as AnyUISchemaElement[],
   };
   const state = {
     jsonforms: {
@@ -1567,7 +1567,7 @@ test('should assign defaults to enum', (t) => {
     },
   };
 
-  const uischema: UISchemaElement = undefined;
+  const uischema: AnyUISchemaElement = undefined;
 
   const data = {
     name: 'foo',

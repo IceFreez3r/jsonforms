@@ -15,13 +15,13 @@
 <script lang="ts">
 import {
   defaultMiddleware,
+  type AnyUISchemaElement,
   type JsonFormsCellRendererRegistryEntry,
   type JsonFormsI18nState,
   type JsonFormsRendererRegistryEntry,
   type JsonFormsUISchemaRegistryEntry,
   type JsonSchema,
   type Middleware,
-  type UISchemaElement,
   type ValidationMode,
 } from '@jsonforms/core';
 import {
@@ -54,7 +54,7 @@ export default defineComponent({
     },
     uischema: {
       required: false,
-      type: Object as PropType<UISchemaElement>,
+      type: Object as PropType<AnyUISchemaElement>,
       default: undefined,
     },
     renderers: {

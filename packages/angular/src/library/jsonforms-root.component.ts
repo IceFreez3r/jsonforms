@@ -35,11 +35,11 @@ import {
 } from '@angular/core';
 import {
   Actions,
+  AnyUISchemaElement,
   JsonFormsI18nState,
   JsonFormsRendererRegistryEntry,
   JsonSchema,
   Middleware,
-  UISchemaElement,
   UISchemaTester,
   ValidationMode,
   defaultMiddleware,
@@ -58,11 +58,14 @@ import { Subscription } from 'rxjs';
   standalone: false,
 })
 export class JsonForms implements DoCheck, OnChanges, OnInit, OnDestroy {
-  @Input() uischema: UISchemaElement;
+  @Input() uischema: AnyUISchemaElement;
   @Input() schema: JsonSchema;
   @Input() data: any;
   @Input() renderers: JsonFormsRendererRegistryEntry[];
-  @Input() uischemas: { tester: UISchemaTester; uischema: UISchemaElement }[];
+  @Input() uischemas: {
+    tester: UISchemaTester;
+    uischema: AnyUISchemaElement;
+  }[];
   @Output() dataChange = new EventEmitter<any>();
   @Input() readonly: boolean;
   @Input() validationMode: ValidationMode;

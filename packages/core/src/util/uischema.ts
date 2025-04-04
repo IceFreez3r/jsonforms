@@ -25,6 +25,7 @@
 
 import isEmpty from 'lodash/isEmpty';
 import {
+  AnyUISchemaElement,
   ControlElement,
   GroupLayout,
   Internationalizable,
@@ -33,28 +34,28 @@ import {
   Layout,
   Scopable,
   Scoped,
-  UISchemaElement,
+  UISchemaBaseElement,
 } from '../models';
 import { compose, getPropPath, toDataPathSegments } from './path';
 
-export type IterateCallback = (uischema: UISchemaElement) => void;
+export type IterateCallback = (uischema: UISchemaBaseElement) => void;
 
 const setReadonlyPropertyValue =
   (value: boolean): IterateCallback =>
-  (child: UISchemaElement): void => {
+  (child: UISchemaBaseElement): void => {
     if (!child.options) {
       child.options = {};
     }
     child.options.readonly = value;
   };
-export const setReadonly = (uischema: UISchemaElement): void => {
+export const setReadonly = (uischema: AnyUISchemaElement): void => {
   iterateSchema(uischema, setReadonlyPropertyValue(true));
 };
-export const unsetReadonly = (uischema: UISchemaElement): void => {
+export const unsetReadonly = (uischema: AnyUISchemaElement): void => {
   iterateSchema(uischema, setReadonlyPropertyValue(false));
 };
 export const iterateSchema = (
-  uischema: UISchemaElement,
+  uischema: AnyUISchemaElement,
   toApply: IterateCallback
 ): void => {
   if (isEmpty(uischema)) {
@@ -69,18 +70,21 @@ export const iterateSchema = (
 
 /**
  * Find a control in a uiSchema, based on the dotted path of the schema value
- * @param {UISchemaElement} uiSchema the uiSchema to search from
+ * @param {AnyUISchemaElement} uiSchema the uiSchema to search from
  * @param path a dotted prop path to a schema value (i.e. articles.comment.author)
- * @return {UISchemaElement} or undefined if not found
+ * @return {ControlElement} or undefined if not found
  */
 export const findUiControl = (
-  uiSchema: UISchemaElement,
+  uiSchema: AnyUISchemaElement,
   path: string
-): UISchemaElement | undefined => {
+): ControlElement | undefined => {
   if (isControlElement(uiSchema)) {
     if (isScoped(uiSchema) && uiSchema.scope.endsWith(getPropPath(path))) {
       return uiSchema;
-    } else if (uiSchema.options?.detail) {
+    } else if (
+      uiSchema.options?.detail &&
+      typeof uiSchema.options.detail === 'object'
+    ) {
       return findUiControl(uiSchema.options.detail, path);
     }
   }
@@ -119,7 +123,7 @@ export const isInternationalized = (
 export const isGroup = (layout: Layout): layout is GroupLayout =>
   layout.type === 'Group';
 
-export const isLayout = (uischema: UISchemaElement): uischema is Layout =>
+export const isLayout = (uischema: AnyUISchemaElement): uischema is Layout =>
   (uischema as Layout).elements !== undefined;
 
 export const isScopable = (obj: unknown): obj is Scopable =>
@@ -135,5 +139,5 @@ export const isLabeled = <T = never>(obj: unknown): obj is Labeled<T> =>
   isLabelable(obj) && ['string', 'boolean'].includes(typeof obj.label);
 
 export const isControlElement = (
-  uiSchema: UISchemaElement
+  uiSchema: AnyUISchemaElement
 ): uiSchema is ControlElement => uiSchema.type === 'Control';

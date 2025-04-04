@@ -37,9 +37,9 @@
 import {
   createCombinatorRenderInfos,
   findMatchingUISchema,
+  type AnyUISchemaElement,
   type CombinatorSubSchemaRenderInfo,
   type ControlElement,
-  type UISchemaElement,
 } from '@jsonforms/core';
 import {
   DispatchRenderer,
@@ -64,7 +64,7 @@ const controlRenderer = defineComponent({
     return useVuetifyControl(useJsonFormsAllOfControl(props));
   },
   computed: {
-    delegateUISchema(): UISchemaElement {
+    delegateUISchema(): AnyUISchemaElement {
       return findMatchingUISchema(this.control.uischemas)(
         this.control.schema,
         this.control.uischema.scope,

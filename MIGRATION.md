@@ -71,8 +71,11 @@ Use JSON Forms 3.1 if you need to stay on Angular 14.
 Previously the testers had the following interfaces.
 
 ```ts
-type Tester = (uischema: UISchemaElement, schema: JsonSchema) => boolean;
-type RankedTester = (uischema: UISchemaElement, schema: JsonSchema) => number;
+type Tester = (uischema: UISchemaBaseElement, schema: JsonSchema) => boolean;
+type RankedTester = (
+  uischema: UISchemaBaseElement,
+  schema: JsonSchema
+) => number;
 ```
 
 Testers may be invoked on arbitrary subschemas of the form-wide schema, for example on nested objects or array items.
@@ -89,12 +92,12 @@ interface TesterContext {
 }
 
 type Tester = (
-  uischema: UISchemaElement,
+  uischema: UISchemaBaseElement,
   schema: JsonSchema,
   context: TesterContext
 ) => boolean;
 type RankedTester = (
-  uischema: UISchemaElement,
+  uischema: UISchemaBaseElement,
   schema: JsonSchema,
   context: TesterContext
 ) => number;

@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 import * as React from 'react';
-import { LabelElement, UISchemaElement } from '@jsonforms/core';
+import { LabelElement, UISchemaBaseElement } from '@jsonforms/core';
 import { JsonFormsStateProvider } from '@jsonforms/react';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Enzyme, { mount, ReactWrapper } from 'enzyme';
@@ -67,7 +67,7 @@ describe('Label', () => {
   afterEach(() => wrapper.unmount());
 
   test('render with undefined text', () => {
-    const uischema: UISchemaElement = { type: 'Label' };
+    const uischema: UISchemaBaseElement = { type: 'Label' };
     const core = initCore(fixture.schema, uischema, fixture.data);
     wrapper = mount(
       <JsonFormsStateProvider initState={{ core }}>

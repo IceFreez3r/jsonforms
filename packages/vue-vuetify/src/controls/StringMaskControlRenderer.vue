@@ -40,7 +40,7 @@
 import {
   type ControlElement,
   type Tester,
-  type UISchemaElement,
+  type UISchemaBaseElement,
 } from '@jsonforms/core';
 import {
   rendererProps,
@@ -189,7 +189,7 @@ export default controlRenderer;
 
 const hasOption =
   (optionName: string): Tester =>
-  (uischema: UISchemaElement): boolean => {
+  (uischema: UISchemaBaseElement): boolean => {
     if (isEmpty(uischema)) {
       return false;
     }

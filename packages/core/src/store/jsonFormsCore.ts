@@ -1,6 +1,6 @@
 import type Ajv from 'ajv';
 import type { ErrorObject } from 'ajv';
-import { JsonSchema, UISchemaElement } from '../models';
+import { AnyUISchemaElement, JsonSchema } from '../models';
 import get from 'lodash/get';
 import { errorsAt } from '../util';
 import {
@@ -51,7 +51,7 @@ export const getData = (state: JsonFormsState) =>
   extractData(get(state, 'jsonforms.core'));
 export const getSchema = (state: JsonFormsState): JsonSchema =>
   extractSchema(get(state, 'jsonforms.core'));
-export const getUiSchema = (state: JsonFormsState): UISchemaElement =>
+export const getUiSchema = (state: JsonFormsState): AnyUISchemaElement =>
   extractUiSchema(get(state, 'jsonforms.core'));
 export const getAjv = (state: JsonFormsState): Ajv =>
   extractAjv(get(state, 'jsonforms.core'));

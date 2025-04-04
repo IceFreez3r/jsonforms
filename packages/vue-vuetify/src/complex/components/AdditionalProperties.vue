@@ -15,7 +15,7 @@
                     {
                       type: 'Control',
                       scope: '#/',
-                    } as UISchemaElement
+                    } as ControlElement
                   "
                   :schema="propertyNameSchema"
                   :additionalErrors="additionalErrors"
@@ -103,10 +103,11 @@ import {
   createDefaultValue,
   encode,
   getI18nKeyPrefix,
+  type AnyUISchemaElement,
+  type ControlElement,
   type GroupLayout,
   type JsonSchema,
   type JsonSchema7,
-  type UISchemaElement,
 } from '@jsonforms/core';
 import {
   DispatchRenderer,
@@ -126,6 +127,7 @@ import {
   ref,
   unref,
   type PropType,
+  type Ref,
 } from 'vue';
 import { useDisplay } from 'vuetify';
 import {
@@ -152,7 +154,7 @@ interface AdditionalPropertyType {
   propertyName: string;
   path: string;
   schema: JsonSchema | undefined;
-  uischema: UISchemaElement | undefined;
+  uischema: AnyUISchemaElement | undefined;
 }
 
 export default defineComponent({
@@ -195,7 +197,7 @@ export default defineComponent({
       propValue: any,
     ): AdditionalPropertyType => {
       let propSchema: JsonSchema | undefined = undefined;
-      let propUiSchema: UISchemaElement | undefined = undefined;
+      let propUiSchema: AnyUISchemaElement | undefined = undefined;
 
       if (control.value.schema.patternProperties) {
         const matchedPattern = Object.keys(
@@ -251,7 +253,7 @@ export default defineComponent({
     };
 
     const appliedOptions = useControlAppliedOptions(props.input);
-    const additionalPropertyItems = ref<AdditionalPropertyType[]>(
+    const additionalPropertyItems: Ref<AdditionalPropertyType[]> = ref(
       additionalKeys.value.map((propName) =>
         toAdditionalPropertyType(propName, control.value.data[propName]),
       ),

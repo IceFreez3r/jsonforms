@@ -14,7 +14,6 @@ import {
   Generate,
   configReducer,
   JsonSchema,
-  UISchemaElement,
   ValidationMode,
   JsonFormsCore,
   JsonFormsUISchemaRegistryEntry,
@@ -25,6 +24,7 @@ import {
   JsonFormsI18nState,
   defaultMiddleware,
   Middleware,
+  AnyUISchemaElement,
 } from '@jsonforms/core';
 import { JsonFormsChangeEvent, MaybeReadonly } from '../types';
 import DispatchRenderer from './DispatchRenderer.vue';
@@ -64,7 +64,7 @@ export default defineComponent({
     },
     uischema: {
       required: false,
-      type: Object as PropType<UISchemaElement>,
+      type: Object as PropType<AnyUISchemaElement>,
       default: undefined,
     },
     renderers: {

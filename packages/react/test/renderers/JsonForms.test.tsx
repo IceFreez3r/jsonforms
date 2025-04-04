@@ -1,19 +1,19 @@
 /*
   The MIT License
-  
+
   Copyright (c) 2017-2019 EclipseSource Munich
   https://github.com/eclipsesource/jsonforms
-  
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
-  
+
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
-  
+
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,16 +26,18 @@ import React from 'react';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import type {
+  AnyUISchemaElement,
   ControlElement,
   ControlProps,
   DispatchCellProps,
+  HorizontalLayout,
   JsonFormsState,
   JsonFormsStore,
+  JsonFormsUISchemaRegistryEntry,
   JsonSchema,
   Layout,
   Middleware,
   RendererProps,
-  UISchemaElement,
 } from '@jsonforms/core';
 import {
   createAjv,
@@ -84,7 +86,7 @@ export interface JsonFormsInitialState {
   /**
    * UI Schema describing the UI to be rendered.
    */
-  uischema?: UISchemaElement;
+  uischema?: AnyUISchemaElement;
 
   /**
    * Any additional state.
@@ -142,7 +144,7 @@ const fixture = {
       },
     },
   },
-};
+} as const;
 
 test('JsonForms renderer should report about missing renderer', () => {
   const store = initJsonFormsStore({
@@ -210,9 +212,9 @@ test('deregister an unregistered renderer should be a no-op', () => {
   store.dispatch(registerRenderer(() => 10, CustomRenderer1));
   store.dispatch(registerRenderer(() => 5, CustomRenderer2));
   const tester = () => 10;
-  const nrOfRenderers = store.getState().jsonforms.renderers.length;
+  const nrOfRenderers = store.getState().jsonforms.renderers?.length ?? 0;
   store.dispatch(unregisterRenderer(tester, CustomRenderer3));
-  expect(store.getState().jsonforms.renderers.length).toBe(nrOfRenderers);
+  expect(store.getState().jsonforms.renderers?.length ?? 0).toBe(nrOfRenderers);
 });
 
 test('ids should be unique within the same form', () => {
@@ -229,7 +231,7 @@ test('ids should be unique within the same form', () => {
     return <div className='layout'>{children}</div>;
   };
 
-  const uischema2 = {
+  const uischema2: HorizontalLayout = {
     type: 'HorizontalLayout',
     elements: [
       {
@@ -411,7 +413,7 @@ test('JsonForms renderer should pick most applicable renderer via ownProps', () 
 });
 
 test('JsonForms renderer should pick most applicable cell renderer via ownProps', () => {
-  const uiSchema = {
+  const uiSchema: ControlElement = {
     type: 'Control',
     scope: '#/properties/stringArray',
   };
@@ -499,7 +501,7 @@ test('JsonForms renderer should pick uiSchema from ownProps', () => {
   );
   store.dispatch(registerRenderer(() => 5, CustomRenderer2));
 
-  const myUiSchema = {
+  const myUiSchema: HorizontalLayout = {
     type: 'HorizontalLayout',
     elements: [
       {
@@ -640,7 +642,7 @@ test('JsonForms should support two isolated components', () => {
 });
 
 test('JsonForms should create a JsonFormsStateProvider with initState props', () => {
-  const tester = (_uischema: UISchemaElement, s: JsonSchema) =>
+  const tester = (_uischema: AnyUISchemaElement, s: JsonSchema) =>
     s.properties.foo.type === 'number' ? 1 : -1;
 
   const renderers = [
@@ -816,7 +818,7 @@ test('JsonForms should use uischemas', () => {
     },
   };
 
-  const uischemas = [
+  const uischemas: JsonFormsUISchemaRegistryEntry[] = [
     {
       tester: (_jsonSchema: JsonSchema, schemaPath: string) => {
         return schemaPath === '#/properties/foo' ? 2 : NOT_APPLICABLE;

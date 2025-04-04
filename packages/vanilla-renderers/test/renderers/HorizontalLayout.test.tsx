@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 import * as React from 'react';
-import { HorizontalLayout, UISchemaElement } from '@jsonforms/core';
+import { AnyUISchemaElement, HorizontalLayout } from '@jsonforms/core';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Enzyme, { mount, ReactWrapper } from 'enzyme';
 import HorizontalLayoutRenderer, {
@@ -58,9 +58,9 @@ describe('Horizontal layout', () => {
   afterEach(() => wrapper.unmount());
 
   test('render with undefined elements', () => {
-    const uischema: UISchemaElement = {
+    const uischema = {
       type: 'HorizontalLayout',
-    };
+    } as AnyUISchemaElement;
     const core = initCore({}, uischema, {});
     wrapper = mount(
       <JsonFormsStateProvider initState={{ core }}>

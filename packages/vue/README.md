@@ -24,7 +24,7 @@ Mandatory props:
 Optional props:
 
 - `schema: JsonSchema` - the data schema for the given data. Will be generated when not given.
-- `uischema: UISchemaElement` - the ui schema for the given data schema. Will be generated when not given.
+- `uischema: AnyUISchemaElement` - the ui schema for the given data schema. Will be generated when not given.
 - `cells: JsonFormsCellRendererRegistryEntry[]` - the Vue cell renderer set to use
 - `config: any` - form-wide options. May contain default ui schema options.
 - `readonly: boolean` - whether all controls shall be readonly.
@@ -122,7 +122,7 @@ export default controlRenderer;
 ```
 
 - You can use the provided `rendererProps` factory which declares all props required for each renderer.
-  When using Typescript you can specify a `UISchemaElement` type to declare that you only expect UI schema elements of that type.
+  When using Typescript you can specify a `AnyUISchemaElement` type to declare that you only expect UI schema elements of that type.
 - In `setup` call the appropriate binding for your renderer.
   Here we use `useJsonFormsControl` which will work on any `Control` element and provides a `control` property containing calculated attributes like `data`, `description`, `errors`, `enabled` and many more.
   It also provides a `handleChange(path,value)` method with which the managed data can be updated.

@@ -1,19 +1,19 @@
 /*
   The MIT License
-  
+
   Copyright (c) 2017-2019 EclipseSource Munich
   https://github.com/eclipsesource/jsonforms
-  
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
-  
+
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
-  
+
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -86,7 +86,7 @@ export interface Rule {
    * The condition of the rule that must evaluate to true in order
    * to trigger the effect.
    */
-  condition: Condition;
+  condition: AnyCondition;
 }
 
 /**
@@ -172,9 +172,19 @@ export interface AndCondition extends ComposableCondition {
 }
 
 /**
+ * Any condition
+ */
+export type AnyCondition =
+  | LeafCondition
+  | SchemaBasedCondition
+  | ComposableCondition
+  | OrCondition
+  | AndCondition;
+
+/**
  * Common base interface for any UI schema element.
  */
-export interface UISchemaElement {
+export interface UISchemaBaseElement {
   /**
    * The type of this UI schema element.
    */
@@ -195,11 +205,11 @@ export interface UISchemaElement {
  * Represents a layout element which can order its children
  * in a specific way.
  */
-export interface Layout extends UISchemaElement {
+export interface Layout extends UISchemaBaseElement {
   /**
    * The child elements of this layout.
    */
-  elements: UISchemaElement[];
+  elements: AnyUISchemaElement[];
 }
 
 /**
@@ -241,7 +251,7 @@ export interface LabelDescription {
 /**
  * A label element.
  */
-export interface LabelElement extends UISchemaElement, Internationalizable {
+export interface LabelElement extends UISchemaBaseElement, Internationalizable {
   type: 'Label';
   /**
    * The text of label.
@@ -250,15 +260,41 @@ export interface LabelElement extends UISchemaElement, Internationalizable {
 }
 
 /**
+ * Options to configure a control element.
+ */
+export interface ControlOptions {
+  detail?: 'DEFAULT' | 'GENERATED' | 'REGISTERED' | AnyUISchemaElement;
+  showSortButtons?: boolean;
+  elementLabelProp?: string;
+  format?: string;
+  readonly?: boolean;
+  [key: string]: any;
+}
+
+/**
  * A control element. The scope property of the control determines
  * to which part of the schema the control should be bound.
  */
 export interface ControlElement
-  extends UISchemaElement,
+  extends UISchemaBaseElement,
     Scoped,
     Labelable<string | boolean | LabelDescription>,
     Internationalizable {
   type: 'Control';
+  options?: ControlOptions;
+}
+
+/**
+ * A list with detail element. The scope property of the control determines
+ * to which part of the schema the control should be bound.
+ */
+export interface ListWithDetailElement
+  extends UISchemaBaseElement,
+    Scoped,
+    Labelable<string | boolean | LabelDescription>,
+    Internationalizable {
+  type: 'ListWithDetail';
+  options?: ControlOptions;
 }
 
 /**
@@ -274,7 +310,7 @@ export interface Category extends Layout, Labeled, Internationalizable {
  * the categorization element can be used to represent recursive structures like trees.
  */
 export interface Categorization
-  extends UISchemaElement,
+  extends UISchemaBaseElement,
     Labeled,
     Internationalizable {
   type: 'Categorization';
@@ -284,3 +320,17 @@ export interface Categorization
    */
   elements: (Category | Categorization)[];
 }
+
+/**
+ * A UISchema element that can be used to represent any UI schema element.
+ */
+export type AnyUISchemaElement =
+  | Layout
+  | VerticalLayout
+  | HorizontalLayout
+  | GroupLayout
+  | LabelElement
+  | ControlElement
+  | ListWithDetailElement
+  | Category
+  | Categorization;

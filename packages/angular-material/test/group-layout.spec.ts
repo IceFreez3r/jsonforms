@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 import { ComponentFixture, waitForAsync } from '@angular/core/testing';
-import { GroupLayout, UISchemaElement } from '@jsonforms/core';
+import { AnyUISchemaElement, GroupLayout } from '@jsonforms/core';
 import { MatCard, MatCardTitle } from '@angular/material/card';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
@@ -36,7 +36,13 @@ import {
 
 describe('Group layout tester', () => {
   it('should succeed', () => {
-    expect(groupLayoutTester({ type: 'Group' }, undefined, undefined)).toBe(1);
+    expect(
+      groupLayoutTester(
+        { type: 'Group' } as AnyUISchemaElement,
+        undefined,
+        undefined
+      )
+    ).toBe(1);
   });
 });
 describe('Group layout', () => {
@@ -50,9 +56,9 @@ describe('Group layout', () => {
   }));
 
   it('render with undefined elements', () => {
-    const uischema: UISchemaElement = {
+    const uischema = {
       type: 'Group',
-    };
+    } as AnyUISchemaElement;
     setupMockStore(fixture, { data: {}, schema: {}, uischema });
     fixture.componentInstance.ngOnInit();
     fixture.detectChanges();

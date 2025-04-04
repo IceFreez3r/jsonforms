@@ -1,4 +1,4 @@
-import { JsonSchema, UISchemaElement } from '../models';
+import { AnyUISchemaElement, JsonSchema } from '../models';
 import { JsonFormsState, getAjv } from '../store';
 import { hasEnableRule, isEnabled } from '../util';
 
@@ -10,7 +10,7 @@ import { hasEnableRule, isEnabled } from '../util';
 export const isInherentlyEnabled = (
   state: JsonFormsState,
   ownProps: any,
-  uischema: UISchemaElement,
+  uischema: AnyUISchemaElement,
   schema: (JsonSchema & { readOnly?: boolean }) | undefined,
   rootData: any,
   config: any
@@ -24,14 +24,8 @@ export const isInherentlyEnabled = (
   if (typeof uischema?.options?.readonly === 'boolean') {
     return !uischema.options.readonly;
   }
-  if (typeof uischema?.options?.readOnly === 'boolean') {
-    return !uischema.options.readOnly;
-  }
   if (typeof config?.readonly === 'boolean') {
     return !config.readonly;
-  }
-  if (typeof config?.readOnly === 'boolean') {
-    return !config.readOnly;
   }
   if (schema?.readOnly === true) {
     return false;

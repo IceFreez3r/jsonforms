@@ -25,13 +25,13 @@
 import { Component } from '@angular/core';
 import { ExampleDescription, getExamples } from '@jsonforms/examples';
 import {
+  AnyUISchemaElement,
   JsonFormsI18nState,
-  UISchemaElement,
   UISchemaTester,
 } from '@jsonforms/core';
 import { angularMaterialRenderers } from '../../lib';
 
-const uiSchema = {
+const uiSchema: AnyUISchemaElement = {
   type: 'HorizontalLayout',
   elements: [
     {
@@ -96,7 +96,7 @@ export class AppComponent {
   i18n: JsonFormsI18nState;
   readonly = false;
   data: any;
-  uischemas: { tester: UISchemaTester; uischema: UISchemaElement }[] = [
+  uischemas: { tester: UISchemaTester; uischema: AnyUISchemaElement }[] = [
     { tester: itemTester, uischema: uiSchema },
   ];
 

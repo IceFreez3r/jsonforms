@@ -28,6 +28,7 @@ import type Ajv from 'ajv';
 import type { ErrorObject } from 'ajv';
 import { UnknownRenderer } from './UnknownRenderer';
 import {
+  AnyUISchemaElement,
   createId,
   Generate,
   isControl,
@@ -41,7 +42,6 @@ import {
   Middleware,
   OwnPropsOfJsonFormsRenderer,
   removeId,
-  UISchemaElement,
   ValidationMode,
 } from '@jsonforms/core';
 import {
@@ -117,7 +117,7 @@ export class JsonFormsDispatchRenderer extends React.Component<
 }
 
 const TestAndRender = React.memo(function TestAndRender(props: {
-  uischema: UISchemaElement;
+  uischema: AnyUISchemaElement;
   schema: JsonSchema;
   rootSchema: JsonSchema;
   path: string;
@@ -187,7 +187,7 @@ export const ResolvedJsonFormsDispatch: ComponentType<OwnPropsOfJsonFormsRendere
 export interface JsonFormsInitStateProps {
   data: any;
   schema?: JsonSchema;
-  uischema?: UISchemaElement;
+  uischema?: AnyUISchemaElement;
   renderers: JsonFormsRendererRegistryEntry[];
   cells?: JsonFormsCellRendererRegistryEntry[];
   ajv?: Ajv;

@@ -7,7 +7,7 @@ import {
   mapStateToLayoutProps,
   JsonFormsSubStates,
   JsonSchema,
-  UISchemaElement,
+  AnyUISchemaElement,
   CoreActions,
   mapStateToEnumControlProps,
   JsonFormsState,
@@ -59,7 +59,7 @@ import {
  * `rendererProps<Layout>()` in combination with `useJsonFormsLayout` or
  * `rendererProps<ControlElement>()` in combination with `useJsonFormsControl`.
  */
-export const rendererProps = <U = UISchemaElement>() => ({
+export const rendererProps = <U = AnyUISchemaElement>() => ({
   schema: {
     required: true as const,
     type: [Object, Boolean] as PropType<JsonSchema>,
@@ -127,7 +127,7 @@ export const masterListItemProps = () => ({
   },
 });
 
-export interface RendererProps<U = UISchemaElement> {
+export interface RendererProps<U = AnyUISchemaElement> {
   schema: JsonSchema;
   uischema: U;
   path: string;
@@ -145,33 +145,27 @@ export type Required<T> = T extends object
   ? { [P in keyof T]-?: NonNullable<T[P]> }
   : T;
 
-// TODO fix @typescript-eslint/ban-types
-// eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-unused-vars
 export function useControl<
   R,
   D,
-  P extends { schema: JsonSchema; uischema: UISchemaElement & Scopable }
+  P extends { schema: JsonSchema; uischema: AnyUISchemaElement & Scopable }
 >(
   props: P,
   stateMap: (state: JsonFormsState, props: P) => R
 ): { control: ComputedRef<Required<P & R>> };
-// TODO fix @typescript-eslint/ban-types
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function useControl<
   R,
   D,
-  P extends { schema: JsonSchema; uischema: UISchemaElement & Scopable }
+  P extends { schema: JsonSchema; uischema: AnyUISchemaElement & Scopable }
 >(
   props: P,
   stateMap: (state: JsonFormsState, props: P) => R,
   dispatchMap: (dispatch: Dispatch<CoreActions>) => D
 ): { control: ComputedRef<Required<P & R>> } & D;
-// TODO fix @typescript-eslint/ban-types
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function useControl<
   R,
   D,
-  P extends { schema: JsonSchema; uischema: UISchemaElement & Scopable }
+  P extends { schema: JsonSchema; uischema: AnyUISchemaElement & Scopable }
 >(
   props: P,
   stateMap: (state: JsonFormsState, props: P) => R,

@@ -38,8 +38,8 @@ import {
   Layout,
   mapStateToLayoutProps,
   OwnPropsOfRenderer,
-  UISchemaElement,
   JsonSchema,
+  AnyUISchemaElement,
 } from '@jsonforms/core';
 
 @Component({
@@ -87,11 +87,13 @@ export class LayoutChildrenRenderPropsPipe implements PipeTransform {
     schema: JsonSchema,
     path: string
   ): OwnPropsOfRenderer[] {
-    const elements = (uischema.elements || []).map((el: UISchemaElement) => ({
-      uischema: el,
-      schema: schema,
-      path: path,
-    }));
+    const elements = (uischema.elements || []).map(
+      (el: AnyUISchemaElement) => ({
+        uischema: el,
+        schema: schema,
+        path: path,
+      })
+    );
     return elements;
   }
 }

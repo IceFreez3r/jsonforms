@@ -23,7 +23,11 @@
   THE SOFTWARE.
 */
 import * as React from 'react';
-import { UISchemaElement, VerticalLayout } from '@jsonforms/core';
+import {
+  AnyUISchemaElement,
+  UISchemaBaseElement,
+  VerticalLayout,
+} from '@jsonforms/core';
 import { JsonFormsStateProvider } from '@jsonforms/react';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Enzyme, { mount, ReactWrapper } from 'enzyme';
@@ -49,10 +53,10 @@ describe('Vertical layout', () => {
   afterEach(() => wrapper.unmount());
 
   test('render with undefined elements', () => {
-    const uischema: UISchemaElement = {
+    const uischema: UISchemaBaseElement = {
       type: 'VerticalLayout',
     };
-    const core = initCore({}, uischema, {});
+    const core = initCore({}, uischema as AnyUISchemaElement, {});
     wrapper = mount(
       <JsonFormsStateProvider initState={{ core }}>
         <VerticalLayoutRenderer uischema={uischema} />

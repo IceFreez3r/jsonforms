@@ -53,7 +53,7 @@ import {
   ControlElement,
   JsonSchema,
   LabelElement,
-  UISchemaElement,
+  UISchemaBaseElement,
   hasOption,
 } from '../src';
 
@@ -171,7 +171,7 @@ test('optionIs should check for options', (t) => {
 });
 
 test('optionIs should not fail if uischema is undefined or null', (t) => {
-  const uischema: UISchemaElement = null;
+  const uischema: UISchemaBaseElement = null;
   t.false(optionIs('answer', 42)(uischema, undefined, undefined));
   t.false(optionIs('answer', 42)(uischema, undefined, undefined));
 });
@@ -196,7 +196,7 @@ test('hasOption should check for options', (t) => {
 });
 
 test('hasOption should not fail if uischema is undefined or null', (t) => {
-  const uischema: UISchemaElement = null;
+  const uischema: UISchemaBaseElement = null;
   t.false(hasOption('answer')(uischema, undefined, undefined));
 });
 

@@ -25,10 +25,10 @@
 
 import get from 'lodash/get';
 import {
+  AnyUISchemaElement,
   ControlElement,
   JsonSchema,
   LabelElement,
-  UISchemaElement,
 } from '../models';
 import type { RankedTester } from '../testers';
 import { CoreActions, update, UpdateArrayContext } from '../actions';
@@ -366,7 +366,7 @@ export interface OwnPropsOfRenderer {
   /**
    * The UI schema to be rendered.
    */
-  uischema?: UISchemaElement;
+  uischema?: AnyUISchemaElement;
   /**
    * The JSON schema that describes the data.
    */
@@ -424,7 +424,7 @@ export interface StatePropsOfRenderer {
   /**
    * The UI schema to be rendered.
    */
-  uischema: UISchemaElement;
+  uischema: AnyUISchemaElement;
 
   /**
    * The JSON schema that describes the data.
@@ -813,7 +813,7 @@ export interface OwnPropsOfMasterListItem {
   path: string;
   enabled: boolean;
   schema: JsonSchema;
-  uischema: UISchemaElement;
+  uischema: AnyUISchemaElement;
   childLabelProp?: string;
   handleSelect(index: number): () => void;
   removeItem(path: string, value: number): () => void;
@@ -1018,7 +1018,7 @@ export const layoutDefaultProps: {
   direction: 'column',
 };
 
-const getDirection = (uischema: UISchemaElement) => {
+const getDirection = (uischema: AnyUISchemaElement) => {
   if (uischema.type === 'HorizontalLayout') {
     return 'row';
   }
@@ -1307,7 +1307,7 @@ export const mapStateToLabelProps = (
  * @param {JsonSchema} schema the json schema for this control
  * @param {JsonSchema} rootSchema the root json schema
  * @param {Translator} translateFct the translator fonction
- * @param {UISchemaElement} uiSchema the uiSchema of the control
+ * @param {AnyUISchemaElement} uiSchema the uiSchema of the control
  */
 export const computeChildLabel = (
   data: any,
@@ -1316,7 +1316,7 @@ export const computeChildLabel = (
   schema: JsonSchema,
   rootSchema: JsonSchema,
   translateFct: Translator,
-  uiSchema: UISchemaElement
+  uiSchema: AnyUISchemaElement
 ): string => {
   const childData = Resolve.data(data, childPath);
 

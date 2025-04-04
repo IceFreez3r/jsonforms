@@ -1,19 +1,19 @@
 /*
   The MIT License
-  
+
   Copyright (c) 2017-2019 EclipseSource Munich
   https://github.com/eclipsesource/jsonforms
-  
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
-  
+
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
-  
+
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,7 +25,7 @@
 
 import type AJV from 'ajv';
 import type { ErrorObject } from 'ajv';
-import { JsonSchema, UISchemaElement } from '../models';
+import { AnyUISchemaElement, JsonSchema } from '../models';
 import { generateDefaultUISchema, generateJsonSchema } from '../generators';
 
 import { RankedTester, UISchemaTester } from '../testers';
@@ -132,7 +132,7 @@ export interface InitAction {
   type: 'jsonforms/INIT';
   data: any;
   schema: JsonSchema;
-  uischema: UISchemaElement;
+  uischema: AnyUISchemaElement;
   options?: InitActionOptions | AJV;
 }
 
@@ -140,7 +140,7 @@ export interface UpdateCoreAction {
   type: 'jsonforms/UPDATE_CORE';
   data?: any;
   schema?: JsonSchema;
-  uischema?: UISchemaElement;
+  uischema?: AnyUISchemaElement;
   options?: InitActionOptions | AJV;
 }
 
@@ -158,7 +158,7 @@ export interface SetValidationModeAction {
 export const init = (
   data: any,
   schema: JsonSchema = generateJsonSchema(data),
-  uischema?: UISchemaElement,
+  uischema?: AnyUISchemaElement,
   options?: InitActionOptions | AJV
 ) => ({
   type: INIT,
@@ -172,7 +172,7 @@ export const init = (
 export const updateCore = (
   data: any,
   schema: JsonSchema,
-  uischema?: UISchemaElement,
+  uischema?: AnyUISchemaElement,
   options?: AJV | InitActionOptions
 ): UpdateCoreAction => ({
   type: UPDATE_CORE,
@@ -300,12 +300,12 @@ export type UISchemaActions = AddUISchemaAction | RemoveUISchemaAction;
 export interface AddUISchemaAction {
   type: 'jsonforms/ADD_UI_SCHEMA';
   tester: UISchemaTester;
-  uischema: UISchemaElement;
+  uischema: AnyUISchemaElement;
 }
 
 export const registerUISchema = (
   tester: UISchemaTester,
-  uischema: UISchemaElement
+  uischema: AnyUISchemaElement
 ): AddUISchemaAction => {
   return {
     type: ADD_UI_SCHEMA,
@@ -388,10 +388,12 @@ export const updateI18n = (
 
 export interface SetUISchemaAction {
   type: 'jsonforms/SET_UISCHEMA';
-  uischema: UISchemaElement;
+  uischema: AnyUISchemaElement;
 }
 
-export const setUISchema = (uischema: UISchemaElement): SetUISchemaAction => ({
+export const setUISchema = (
+  uischema: AnyUISchemaElement
+): SetUISchemaAction => ({
   type: SET_UISCHEMA,
   uischema,
 });

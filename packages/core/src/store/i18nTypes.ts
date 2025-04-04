@@ -1,5 +1,5 @@
 import type { ErrorObject } from 'ajv';
-import type { JsonSchema, UISchemaElement } from '../models';
+import type { AnyUISchemaElement, JsonSchema } from '../models';
 
 export type Translator = {
   (id: string, defaultMessage: string, values?: any): string;
@@ -10,7 +10,7 @@ export type Translator = {
 export type ErrorTranslator = (
   error: ErrorObject,
   translate: Translator,
-  uischema?: UISchemaElement
+  uischema?: AnyUISchemaElement
 ) => string;
 
 export interface JsonFormsI18nState {

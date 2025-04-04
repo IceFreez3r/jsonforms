@@ -1,5 +1,5 @@
 import type { ErrorObject } from 'ajv';
-import { Labelable, UISchemaElement } from '../models';
+import { AnyUISchemaElement, Labelable } from '../models';
 import type { i18nJsonSchema, ErrorTranslator, Translator } from '../store';
 import {
   ArrayDefaultTranslation,
@@ -117,7 +117,7 @@ export const getCombinedErrorMessage = (
   et: ErrorTranslator,
   t: Translator,
   schema?: i18nJsonSchema,
-  uischema?: UISchemaElement,
+  uischema?: AnyUISchemaElement,
   path?: string
 ) => {
   if (errors.length > 0 && t) {

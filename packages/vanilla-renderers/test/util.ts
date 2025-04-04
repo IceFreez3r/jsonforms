@@ -23,13 +23,13 @@
   THE SOFTWARE.
 */
 
-import { createAjv, JsonSchema, UISchemaElement } from '@jsonforms/core';
+import { AnyUISchemaElement, createAjv, JsonSchema } from '@jsonforms/core';
 import { JsonFormsReactProps, useJsonForms } from '@jsonforms/react';
 import React from 'react';
 
 export const initCore = (
   schema: JsonSchema,
-  uischema: UISchemaElement,
+  uischema: AnyUISchemaElement,
   data?: any
 ) => {
   return { schema, uischema, data, ajv: createAjv() };

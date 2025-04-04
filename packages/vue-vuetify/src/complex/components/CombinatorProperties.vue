@@ -11,9 +11,9 @@
 <script lang="ts">
 import {
   Generate,
+  type AnyUISchemaElement,
   type JsonSchema,
   type Layout,
-  type UISchemaElement,
 } from '@jsonforms/core';
 import { DispatchRenderer } from '@jsonforms/vue';
 import omit from 'lodash/omit';
@@ -54,14 +54,14 @@ export default defineComponent({
       props.schema,
       props.combinatorKeyword,
     ) as JsonSchema;
-    const foundUISchema: UISchemaElement = Generate.uiSchema(
+    const foundUISchema = Generate.uiSchema(
       otherProps,
       'VerticalLayout',
       undefined,
       props.rootSchema,
     );
 
-    const isLayout = (uischema: UISchemaElement): uischema is Layout =>
+    const isLayout = (uischema: AnyUISchemaElement): uischema is Layout =>
       Object.prototype.hasOwnProperty.call(uischema, 'elements');
 
     let isLayoutWithElements = false;
